@@ -18,10 +18,10 @@
 	                <li><a href="/about">About</a></li>
 	                <li><a href="/contact">Contact</a></li>
 	                <li class="dropdown">
-	                  <a href="/login" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
+	                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
 	                  <ul class="dropdown-menu">
-	                    <li><a href="/login">Login</a></li>
-	                    <li><a href="/register">Register</a></li>
+	                    <li><a href="{{ url_for('user_login') }}">Login</a></li>
+	                    <li><a href="{{ url_for('user_register') }}">Register</a></li>
 	                    <li><a href="/logout">Logout</a></li>
 	                    <li role="separator" class="divider"></li>
 	                    <li class="dropdown-header">Profile</li>

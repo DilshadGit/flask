@@ -1,0 +1,13 @@
+body {
+	padding-bottom: 0px;
+	background-color: red;
+}
+
+.navbar-wrapper {
+	background-color: #d6e0f5;
+}
+
+footer.container-fluid {
+	background-color: #d6e0f5;
+	color: #000;
+}

@@ -1,10 +1,25 @@
-{# extends "bootstrap_responsive.html" #}
-{# import "bootstrap_wtf.html" as wtf #}
 
 {% include 'header.html' %}
 {% include 'navbar.html' %}
 
+<hr class="featurette-divider">
+
+<div class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		{% for category, message in messages %}
+			<div class="alert alert-{{ category }} text-center">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
+</div>
+
+<div class="container">
 {% block content %}
+
 {% endblock content %}
+</div>
 
 {% include 'footer.html' %}
