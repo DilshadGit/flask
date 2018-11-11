@@ -1,50 +1,14 @@
-from datetime import datetime
-from flask import Flask
 from flask import (
     render_template,
     url_for,
     flash,
     redirect,
 )
+from flaskpro import app
+from flaskpro.forms import UserRegistrationForm, UserLoginForm
+''' The models must imported after database created not before !!!! '''
+from flaskpro.models import User, Post
 
-from flask_sqlalchemy import SQLAlchemy
-
-from forms import UserRegistrationForm, UserLoginForm
-
-from flask_bootstrap import Bootstrap
-
-app = Flask(__name__)
-
-# added securit key for csrf request and secure login detail
-app.config[
-    'SECRET_KEY'] = '8ba7aa2eea1ddbf6c024bea56ac6c804198b535a1fe5616cced1d0c61f21ddb2'
-''' configurate the db and location '''
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_db.db'
-
-''' create the database '''
-db = SQLAlchemy(app)
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(30), unique=True, nullable=False)
-    email = db.Column(db.String(60), unique=True, nullable=False)
-    user_image = db.Column(db.String(50), nullable=False, default='default.jpg')
-    password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
-
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.user_image}')"
-
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    content = db.Column(db.Text(800), nullable=False)
-    created_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f"Post('{self.title}', '{self.created_date}', '{self.author}')"
 
 ''' 
 route in flask use to map to different pages, and decorator in flask use to add 
@@ -119,7 +83,3 @@ def user_login():
         else:
             flash('Unsuccessful , please check the your detail', 'danger')
     return render_template(template_name, title='Login', form=form)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
