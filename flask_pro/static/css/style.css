@@ -1,13 +1,32 @@
 body {
 	padding-bottom: 0px;
-	background-color: red;
+	background-color: #fff;
 }
 
 .navbar-wrapper {
 	background-color: #d6e0f5;
 }
 
+.form-horizontal .control-label {
+	padding-top: 7px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
 footer.container-fluid {
-	background-color: #d6e0f5;
+	background-color: #fff;
 	color: #000;
 }
+
+@media (min-width: 768px) {
+	.navbar-wrapper {
+	    margin-top: 5px;
+	}
+
+	.form-horizontal .control-label {
+		padding-top: 7px;
+	    margin-bottom: 0;
+	    text-align: left;
+	}
+}
+
