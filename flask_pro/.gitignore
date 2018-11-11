@@ -1,4 +1,5 @@
 __pycache__
+*/__pycache__
 *.pyc
 requirements2.txt
 guide.text

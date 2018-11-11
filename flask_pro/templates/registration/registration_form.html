@@ -8,80 +8,80 @@
           <h3 class="text-center">Registration form</h3>
           <br>
           <div class="form-group">    
-            <div class="col-sm-12">
-              {{ form.username.label(class="col-sm-4 control-label") }}
+            <div class="col-md-4 col-md-offset-4">
+              {{ form.username.label(class="control-label") }}
               <!-- This is check the username if is correct -->
               {% if form.username.errors %}
-                {{ form.username(class="col-sm-4 form-control-lg is-invalid") }}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.username.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>
               {% else %}
-                  {{ form.username(class="col-sm-4 control-label") }}
+                  {{ form.username(class="form-control control-label") }}
               {% endif %}
             </div>
           </div>
           <div class="form-group">
-              <div class="col-sm-12">
-              {{ form.email.label(class="col-sm-4 control-label") }}
+              <div class="col-md-4 col-md-offset-4">
+              {{ form.email.label(class="control-label") }}
               {% if form.email.errors %}
-                {{ form.email(class="col-sm-4 form-control-lg is-invalid") }}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.email.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>
               {% else %}
-                  {{ form.email(class="col-sm-4 control-label") }}
+                  {{ form.email(class="form-control control-label") }}
               {% endif %}
             </div>
           </div>
            <div class="form-group">
-              <div class="col-sm-12">
-              {{ form.password.label(class="col-sm-4 control-label") }}
+              <div class="col-md-4 col-md-offset-4">
+              {{ form.password.label(class="control-label") }}
               {% if form.password.errors %}
-                {{ form.password(class="col-sm-4 form-control-lg is-invalid") }}
+                {{ form.password(class="form-control form-control-lg is-invalid") }}
                 <div class="invalid-feedback">
                     {% for error in form.password.errors %}
                         <span>{{error}}</span>
                     {% endfor %}
                 </div>
               {% else %}
-                  {{ form.password(class="col-sm-4 control-label") }}
+                  {{ form.password(class="form-control control-label") }}
               {% endif %}
             </div>
           </div>
            <div class="form-group">
-              <div class="col-sm-12">
-              {{ form.confirm_password.label(class="col-sm-4 control-label") }}
+              <div class="col-md-4 col-md-offset-4">
+              {{ form.confirm_password.label(class="control-label") }}
               {% if form.confirm_password.errors %}
-                    {{ form.confirm_password(class="col-sm-4 form-control-lg is-invalid") }}
+                    {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback">
                         {% for error in form.confirm_password.errors %}
                             <span>{{error}}</span>
                         {% endfor %}
                     </div>
               {% else %}
-                  {{ form.confirm_password(class="col-sm-4 control-label") }}
+                  {{ form.confirm_password(class="form-control control-label") }}
               {% endif %}
               
             </div>
           </div>
          
           <div class="form-group">
-            <div class="col-sm-4 col-sm-offset-4">
+            <div class="col-md-4 col-md-offset-4">
               {{ form.submit(class="btn btn-block btn-outline-info") }}
             </div>
           </div>
         </form>
         <hr>
-        <div class="col-sm-offset-6">
-        	<span class="text-muted">
-        		Already register <a href="{{ url_for('user_login') }}" title="">Login</a>
-        	</span>
-        </div>
+      
+      	<p class="text-muted text-center">
+      		Already register <a href="{{ url_for('user_login') }}" title="">Login</a>
+      	</p>
+     
     </div>
 </div>
 {% endblock content %}

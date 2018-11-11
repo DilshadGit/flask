@@ -1,6 +1,6 @@
 body {
 	padding-bottom: 0px;
-	background-color: red;
+	background-color: #fff;
 }
 
 .navbar-wrapper {
@@ -8,6 +8,11 @@ body {
 }
 
 footer.container-fluid {
-	background-color: #d6e0f5;
+	background-color: #fff;
 	color: #000;
+}
+
+@media (min-width: 768px)
+.navbar-wrapper {
+    margin-top: 5px;
 }

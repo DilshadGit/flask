@@ -1,66 +1,66 @@
 {% extends 'base.html' %}
 
+{% block signin %}
+    <link href="{{ url_for('static', filename='bootstrap/css/signin.css') }}" rel="stylesheet">
+{% endblock signin %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <form action="" method="POST" class="form-horizontal">{{ form.hidden_tag() }}
-        	<h3 class="text-center">Please Login!</h3>
-            <div class="form-group">
-                  <div class="col-sm-12">
-                  {{ form.email.label(class="col-sm-4 control-label") }}
-                  {% if form.email.errors %}
-                    {{ form.email(class="col-sm-4 form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.email.errors %}
-                            <span>{{error}}</span>
-                        {% endfor %}
-                    </div>
-                  {% else %}
-                      {{ form.email(class="col-sm-4 control-label") }}
-                  {% endif %}
-                </div>
-              </div>
-               <div class="form-group">
-                  <div class="col-sm-12">
-                  {{ form.password.label(class="col-sm-4 control-label") }}
-                  {% if form.password.errors %}
-                    {{ form.password(class="col-sm-4 form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.password.errors %}
-                            <span>{{error}}</span>
-                        {% endfor %}
-                    </div>
-                  {% else %}
-                      {{ form.password(class="col-sm-4 control-label") }}
-                  {% endif %}
-                </div>
-              </div>   
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-12">
-              <div class="checkbox">
-                  {{ form.remember(class="form-check-input") }}
-                  {{ form.remember.lable(class="form-check-label") }}
-              </div>
+<div class="row text-center">
+    <form method="POST" action="" class="form-horizontal">
+      <img class="col-md-4 col-md-offset-4" src="{{ url_for('static', filename='images/flask-f.svg') }}" alt="" width="242" height="142">
+        {{ form.hidden_tag() }}
+      <h1 class="h3 col-md-4 col-md-offset-4 font-weight-normal">Please sign in</h1>
+
+      <!-- <label for="inputEmail" class="sr-only">Email address</label> -->
+      <div class="col-md-4 col-md-offset-4">
+          {{ form.email.label(class=" control-label") }}
+          {% if form.email.errors %}
+            {{ form.email(class="form-control form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                    <span>{{error}}</span>
+                {% endfor %}
             </div>
-          </div>
-          <div class="form-group">
-            <div class="form-group">
-                <div class="col-sm-4 col-sm-offset-4">
-                    {{ form.submit(class="btn btn-block btn-outline-info") }}
-                </div>
+          {% else %}
+              {{ form.email(class="form-control control-label") }}
+          {% endif %}
+      </div>
+      <!-- <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus> -->
+
+      <div class="col-md-4 col-md-offset-4">
+          {{ form.password.label(class=" control-label") }}
+          {% if form.password.errors %}
+            {{ form.password(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                    <span>{{error}}</span>
+                {% endfor %}
             </div>
-          </div>
-        </form>
-        <hr>
-        <div class="col-sm-offset-4">
-        	<p class="text-muted">
-        		To create new account go to register form <a href="{{ url_for('user_register') }}" title="">Register</a>
+          {% else %}
+              {{ form.password(class="form-control control-label") }}
+          {% endif %}
+      </div>
+      <div class="checkbox col-md-4 col-md-offset-4">
+          {{ form.remember(class="form-check-input") }} 
+          {{ form.remember(class="form-check") }}
+          <label>
+            Remember me
+          </label>
+      </div>
+
+      <div class="col-md-4 col-md-offset-4">
+          {{ form.submit(class="btn btn-block btn-primary") }}
+      </div>
+       <br>
+        <div class="col-md-4 col-md-offset-4">
+          <p class="text-muted">
+            To create new account go to register form <a href="{{ url_for('user_register') }}" title="">Register</a>
              <a href="#" title="">Forget Password</a>
-        	</p>
+          </p>
         </div>
-    </div>
+
+     
+    </form>
 </div>
 {% endblock content %}
 

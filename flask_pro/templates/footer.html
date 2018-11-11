@@ -1,14 +1,28 @@
 
-</div> <!-- /container -->
+        </div> <!-- /container -->
     <hr>
 </div>
-<footer class="container-fluid" style="height: 100px; background-color: #101010;">
+<footer class="container-fluid" style="height: 100px; color: #fff">
 
     <div class="container" style="padding-bottom:50px;">
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4"><p class="text-center">&copy; 2016 Company, Inc.</p></div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <ul class="text-center">
+                    <li><a href="" title="">Linkedin</a> </li>
+                    <li><a href="" title="">Twitter</a> </li>
+                    <li><a href="" title="">GitHub</a> </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <p class="text-center text-muted">&copy; 2016 Company, Inc.</p>
+            </div>
+            <div class="col-md-4">
+                <ul class="text-center">
+                    <li><a href="" title="">Facebook</a> </li>
+                    <li><a href="" title="">Instagram</a> </li>
+                    <li><a href="" title="">Facetime</a> </li>
+                </ul>
+            </div>
         </div>
     </div>
     
@@ -22,6 +36,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/holder.min.js') }}"></script>
+    
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ url_for('static', filename='bootstrap/js/ie10-viewport-bug-workaround.js') }}"></script>
   </body>
