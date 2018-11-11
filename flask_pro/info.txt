@@ -1,0 +1,24 @@
+How to stop this error:
+lask run
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+
+Solution:
+flask --help
+export FLASK_ENV=development 
+export FLASK_APP=main.py
+
+to run the server:
+python main.py or
+flask run
+
+# install wtf to create registration form
+pip install flask_wtf
+
+To import fields type in the forms
+    StringField,
+    PasswordField,
+    SubmitField,
+    BooleanField,

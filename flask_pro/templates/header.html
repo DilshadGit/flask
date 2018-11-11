@@ -30,10 +30,9 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='bootstrap/css/carousel.css') }}" rel="stylesheet">
-    {% block signin %}
-        
-    {% endblock signin %}
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    {% block signin %}{% endblock signin %}
+    
   </head>
 <!-- NAVBAR
 ================================================== -->
