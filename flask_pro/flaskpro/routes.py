@@ -1,3 +1,8 @@
+import os
+import secrets
+
+from PIL import Image
+
 from flask import (
     render_template,
     url_for,
@@ -6,10 +11,10 @@ from flask import (
     request,
 )
 from flaskpro import app, db, bcrypt
-from flaskpro.forms import UserRegistrationForm, UserLoginForm
+from flaskpro.forms import UserRegistrationForm, UserLoginForm, UpdateUserAccountForm
 ''' The models must imported after database created not before !!!! '''
 from flaskpro.models import User, Post
-from flask_login import ( 
+from flask_login import (
     login_user,
     current_user,
     logout_user,
@@ -110,9 +115,38 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route('/user/account')
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, file_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + file_ext
+    picture_path = os.path.join(
+        app.root_path, 'static/images/profile_picture', picture_fn)
+
+    resize_img = (140, 140)
+    new_img = Image.open(form_picture)
+    new_img.thumbnail(resize_img)
+    new_img.save(picture_path)
+
+    return picture_fn
+
+
+@app.route('/user/account', methods=['GET', 'POST'])
 @login_required
 def account():
     template_name = 'registration/user_account.html'
-  
-    return render_template(template_name, title='account')
+    form = UpdateUserAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.user_image = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been update!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    user_image = url_for(
+        'static', filename='images/profile_picture/' + current_user.user_image)
+    return render_template(template_name, title='account', user_image=user_image, form=form)
