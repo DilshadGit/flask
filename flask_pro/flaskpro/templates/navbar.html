@@ -21,13 +21,17 @@
 	                <li class="dropdown">
 	                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
 	                  <ul class="dropdown-menu">
-	                    <li><a href="{{ url_for('user_login') }}">Login</a></li>
-	                    <li><a href="{{ url_for('user_register') }}">Register</a></li>
-	                    <li><a href="/logout">Logout</a></li>
-	                    <li role="separator" class="divider"></li>
-	                    <li class="dropdown-header">Profile</li>
-	                    <li><a href="/change_password">Change Password</a></li>
-	                    <li><a href="#">more</a></li>
+	                  	{% if current_user.is_authenticated %}
+	                  		<li><a href="{{ url_for('logout') }}">Logout</a></li>
+	                    	<li role="separator" class="divider"></li>
+	                    	<li class="dropdown-header">Setting</li>
+	                    	<li><a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a></li>
+	                    	<li><a class="nav-item nav-link" href="/profile">Profile</a></li>
+	                    	<li><a class="nav-item nav-link" href="/change_password">Change Password</a></li>
+	                    {% else %}
+	                    	<li><a href="{{ url_for('user_login') }}">Login</a></li>
+	                    	<li><a href="{{ url_for('user_register') }}">Register</a></li>
+	                    {% endif %}
 	                  </ul>
 	                </li>
 	              </ul>

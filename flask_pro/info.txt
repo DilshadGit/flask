@@ -122,3 +122,50 @@ flask run
 To stop this warining add the line after app.config['SQLALCHEMY_DATABASE_URI']
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+to secure password for user authentication:
+pip install flask-bcrypt 
+
+flask_pro$ python
+Python 3.6.6+ (default, Aug 30 2018, 09:41:10) 
+[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from flask_bcrypt import Bcrypt
+>>> bcrypt = Bcrypt()
+>>> bcrypt.generate_password_hash('testing')
+b'$2b$12$Xy3saFWamOuFQHzVBu6VzeLqcYwVWIpDUaXnTVHh/ai1E2agFakIy'
+>>> bcrypt.generate_password_hash('testing').decode('utf-8')
+'$2b$12$5HE3jgJhuri0Y/a5gMmPQePBpqZMMzn.R6kztQyVkO7SPsSozy/E6'
+>>> bcrypt.generate_password_hash('testing').decode('utf-8')
+'$2b$12$VfTSCK8wcyyPTzj//EtX5.B8xNZQQEwl8JuW4YM.OPx237swVpE4C'
+>>> bcrypt.generate_password_hash('testing').decode('utf-8')
+'$2b$12$Penj7xF0.kMhFymx9sG5yOHqCqm70.ckjIlerZIa5vxB.L8ZqWSs.'
+
+>>> bcrypt.check_password_hash(hashed_pwd, 'mypassword')
+False
+>>> bcrypt.check_password_hash(hashed_pwd, 'testing')
+True
+>>> hashed_pwd = bcrypt.generate_password_hash('my_tutorials').decode('utf-8')
+>>> bcrypt.check_password_hash(hashed_pwd, 'testing')
+False
+>>> bcrypt.check_password_hash(hashed_pwd, 'mypassword')
+False
+>>> bcrypt.check_password_hash(hashed_pwd, 'my_tutorials')
+True
+>>> hashed_pwd = bcrypt.generate_password_hash('my_tutorials').decode('utf-8')
+>>> hashed_pwd
+'$2b$12$07kPEp4AByjF95WMOe4F.eX/rKZi61Cppnngureb8zYRsgMW56oPe'
+>>> 
+
+in the __init__ file add following:
+from flask_bcrypt import Bcrypt
+
+Next
+bcrypt = Bcrypt(app)
+
+add to the routes following
+from flaskpro import  db, bcrypt 
+
+next we need to make sure the registration form not allowed taked username and email address to reregiter to db.
+
+pip install flask-login
