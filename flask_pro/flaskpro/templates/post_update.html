@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<form method="POST" action="" class="form-horizontal">{{ form.hidden_tag() }}
+
+			<h3 class="h3 text-muted">{{legend}}</h3>
+			<br>
+			<div class="">
+			  {{ form.title.label(class=" control-label") }}
+			  {% if form.title.errors %}
+			    {{ form.title(class="form-control is-invalid") }}
+			    <div class="col-md-8 invalid-feedback">
+			        {% for error in form.title.errors %}
+			            <span class="alert-danger">{{error}}</span>
+			        {% endfor %}
+			    </div>
+			  {% else %}
+			      {{ form.title(class="form-control control-label") }}
+			  {% endif %}
+			</div>
+		  
+			<div class="">
+			  {{ form.content.label(class=" control-label") }}
+			  {% if form.content.errors %}
+			    {{ form.content(class="form-control form-control-lg is-invalid") }}
+			    <div class="col-md-8 invalid-feedback">
+			        {% for error in form.content.errors %}
+			            <span class="alert-danger">{{error}}</span>
+			        {% endfor %}
+			    </div>
+			  {% else %}
+			      {{ form.content(class="form-control control-label") }}
+			  {% endif %}
+			</div>
+			<br>
+			<div class="">
+			  {{ form.submit(class="btn btn-block btn-primary") }}
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock content %}
