@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="text-center text-muted">
-			Posts
+			Posted by {{user.username}} ({{posts.total}})
 		</h3>
 		{% for post in posts.items %}
 			<img src="{{ url_for('static', filename='images/profile_picture/' + post.author.user_image) }}" class="rounded img-thumbnail float-right" >

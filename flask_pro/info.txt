@@ -169,3 +169,74 @@ from flaskpro import  db, bcrypt
 next we need to make sure the registration form not allowed taked username and email address to reregiter to db.
 
 pip install flask-login
+
+
+Paginator:
+flaskenv/flask/flask_pro$ clear
+
+(flaskenv) dilmac@Mint:~/Develop/flaskenv/flask/flask_pro$ python
+Python 3.6.6+ (default, Aug 30 2018, 09:41:10) 
+[GCC 8.0.1 20180414 (experimental) [trunk revision 259383]] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from flaskpro.models import Post
+>>> posts = Post.query.all()
+>>> for post in posts:
+...     print(post)
+... 
+Post('Hello Python3.6', '2018-11-13 15:33:12.509431', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Hello Python', '2018-11-13 15:33:38.855804', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Hello Python', '2018-11-13 15:34:04.283407', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Hello London', '2018-11-13 15:34:50.369167', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Google Chrome 22', '2018-11-13 23:58:29.145233', 'User('azad', 'azad@gmail.com', 'b12080008ecdfc5b.jpg')')
+Post('Linux Mint 18', '2018-11-13 23:58:46.736425', 'User('azad', 'azad@gmail.com', 'b12080008ecdfc5b.jpg')')
+Post('ElasticSearch Meetup', '2018-11-14 14:33:16.153360', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('JavaScript Framework', '2018-11-14 14:33:45.095949', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('Angular 7', '2018-11-14 14:34:06.617925', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('Angular 4', '2018-11-14 14:34:22.957604', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('Bootstrap 4', '2018-11-14 14:36:01.877017', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+>>> posts = Post.query.paginate()
+>>> posts
+<flask_sqlalchemy.Pagination object at 0x7f7e79979400>
+>>> dir(posts)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'has_next', 'has_prev', 'items', 'iter_pages', 'next', 'next_num', 'page', 'pages', 'per_page', 'prev', 'prev_num', 'query', 'total']
+>>> posts.per_page
+20
+>>> posts.pages
+1
+>>> posts.page
+1
+
+>>> posts = Post.query.paginate(page=1)
+>>> for post in posts.items:
+...     print(post)
+... 
+Post('Hello Python3.6', '2018-11-13 15:33:12.509431', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Hello Python', '2018-11-13 15:33:38.855804', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Hello Python', '2018-11-13 15:34:04.283407', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Hello London', '2018-11-13 15:34:50.369167', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Google Chrome 22', '2018-11-13 23:58:29.145233', 'User('azad', 'azad@gmail.com', 'b12080008ecdfc5b.jpg')')
+Post('Linux Mint 18', '2018-11-13 23:58:46.736425', 'User('azad', 'azad@gmail.com', 'b12080008ecdfc5b.jpg')')
+Post('ElasticSearch Meetup', '2018-11-14 14:33:16.153360', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('JavaScript Framework', '2018-11-14 14:33:45.095949', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('Angular 7', '2018-11-14 14:34:06.617925', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('Angular 4', '2018-11-14 14:34:22.957604', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+Post('Bootstrap 4', '2018-11-14 14:36:01.877017', 'User('dilshad', 'dilshad@gmail.com', '55af434927dce2bc.jpg')')
+>>> posts = Post.query.paginate(per_page=2)
+>>> for post in posts.items:
+...     print(post)
+... 
+Post('Hello Python3.6', '2018-11-13 15:33:12.509431', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+Post('Hello Python', '2018-11-13 15:33:38.855804', 'User('Dilshad Abdulla', 'dilmac@gmail.com', '541599e44a56f6da.jpg')')
+>>> 
+
+>>> for page in posts.iter_pages():
+...     print(page)
+... 
+1
+2
+3
+4
+5
+6
+7
+>>> 
