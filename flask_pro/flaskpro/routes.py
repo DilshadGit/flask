@@ -200,7 +200,8 @@ def create_post():
 @app.route('/posts')
 def post_list():
     template_name = 'posts.html'
-    posts = Post.query.all()
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.created_date.desc()).paginate(page=page, per_page=3)
     return render_template(template_name, title='Post list', posts=posts)
 
 
@@ -242,3 +243,12 @@ def post_delete(post_id):
     db.session.commit()
     flash(f'{current_user.username.upper()}, Your current post has ben deleted', 'success')
     return redirect(url_for('post_list'))
+
+
+@app.route('/user/<string:username>')
+def user_posts(username):
+    template_name = 'user_posts.html'
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(author=user).order_by(Post.created_date.desc()).paginate(page=page, per_page=3)
+    return render_template(template_name, title='User Post list', posts=posts, user=user)
