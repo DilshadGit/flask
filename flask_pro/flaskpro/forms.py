@@ -88,14 +88,13 @@ class UpdateUserAccountForm(FlaskForm):
 
 class CreatePostForm(FlaskForm):
     title = StringField('Title', validators=[
-                           DataRequired(), ])
+        DataRequired(), ])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Create Post')
 
 
 class UpdatePostForm(FlaskForm):
     title = StringField('Title', validators=[
-                           DataRequired(), ])
+        DataRequired(), ])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Update Post')
-

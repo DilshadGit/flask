@@ -189,7 +189,8 @@ def create_post():
     template_name = 'post_create.html'
     form = CreatePostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        post = Post(title=form.title.data,
+                    content=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash(f'{post.title} has been successfully created.', 'success')
@@ -201,7 +202,8 @@ def create_post():
 def post_list():
     template_name = 'posts.html'
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.created_date.desc()).paginate(page=page, per_page=3)
+    posts = Post.query.order_by(
+        Post.created_date.desc()).paginate(page=page, per_page=3)
     return render_template(template_name, title='Post list', posts=posts)
 
 
@@ -250,5 +252,6 @@ def user_posts(username):
     template_name = 'user_posts.html'
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user).order_by(Post.created_date.desc()).paginate(page=page, per_page=3)
+    posts = Post.query.filter_by(author=user).order_by(
+        Post.created_date.desc()).paginate(page=page, per_page=3)
     return render_template(template_name, title='User Post list', posts=posts, user=user)
