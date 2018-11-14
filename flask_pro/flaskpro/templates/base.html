@@ -4,19 +4,10 @@
 
 <hr class="featurette-divider">
 
-<div class="col-md-4 col-md-offset-4">
-{% with messages = get_flashed_messages(with_categories=true) %}
-	{% if messages %}
-		{% for category, message in messages %}
-			<div class="alert alert-{{ category }} text-center">
-				{{ message }}
-			</div>
-		{% endfor %}
-	{% endif %}
-{% endwith %}
-</div>
-
 <div class="container">
+
+{% include 'alert_message.html' %}
+
 {% block content %}
 
 {% endblock content %}

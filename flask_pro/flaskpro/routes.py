@@ -9,9 +9,16 @@ from flask import (
     flash,
     redirect,
     request,
+    abort,
 )
 from flaskpro import app, db, bcrypt
-from flaskpro.forms import UserRegistrationForm, UserLoginForm, UpdateUserAccountForm
+from flaskpro.forms import (
+    UserRegistrationForm,
+    UserLoginForm,
+    UpdateUserAccountForm,
+    CreatePostForm,
+    UpdatePostForm,
+)
 ''' The models must imported after database created not before !!!! '''
 from flaskpro.models import User, Post
 from flask_login import (
@@ -47,6 +54,30 @@ posts = [
     },
     {
         'title': 'Djnago',
+        'author': 'Dilshad Abdulla',
+        'content': "route in flask use to map to different pages, and decorator in flask use to add\
+                    additional functionality to existing function and in this case this a Prout decorator \
+                    will handle all of the complicated back-end",
+        'publish_date': 'January 3 2018'
+    },
+    {
+        'title': 'Bootstrap',
+        'author': 'Dilshad Abdulla',
+        'content': "route in flask use to map to different pages, and decorator in flask use to add\
+                    additional functionality to existing function and in this case this a Prout decorator \
+                    will handle all of the complicated back-end",
+        'publish_date': 'November 11 2018'
+    },
+    {
+        'title': 'AWS',
+        'author': 'Dilshad Abdulla',
+        'content': "route in flask use to map to different pages, and decorator in flask use to add\
+                    additional functionality to existing function and in this case this a Prout decorator \
+                    will handle all of the complicated back-end",
+        'publish_date': 'April 12 2016'
+    },
+    {
+        'title': 'Restframework API',
         'author': 'Dilshad Abdulla',
         'content': "route in flask use to map to different pages, and decorator in flask use to add\
                     additional functionality to existing function and in this case this a Prout decorator \
@@ -150,3 +181,64 @@ def account():
     user_image = url_for(
         'static', filename='images/profile_picture/' + current_user.user_image)
     return render_template(template_name, title='account', user_image=user_image, form=form)
+
+
+@app.route('/post/create', methods=['GET', 'POST'])
+@login_required
+def create_post():
+    template_name = 'post_create.html'
+    form = CreatePostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash(f'{post.title} has been successfully created.', 'success')
+        return redirect(url_for('post_list'))
+    return render_template(template_name, title='Create new post', form=form, legend='Create New post')
+
+
+@app.route('/posts')
+def post_list():
+    template_name = 'posts.html'
+    posts = Post.query.all()
+    return render_template(template_name, title='Post list', posts=posts)
+
+
+@app.route('/post/<int:post_id>')
+def post_detail(post_id):
+    template_name = 'post_detail.html'
+    post = Post.query.get_or_404(post_id)
+    return render_template(template_name, post=post, title=post.title)
+
+
+@app.route('/post/update/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def post_update(post_id):
+    template_name = 'post_update.html'
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+        flash('Please be a ware that you only allowed to update own post!')
+    form = UpdatePostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash(f'{current_user.username.upper()}, Your current post has been updated', 'success')
+        return redirect(url_for('post_detail', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.content.data = post.content
+    return render_template(template_name, title='Update Post', post=post, form=form, legend='Update Post')
+
+
+@app.route('/post/delete/<int:post_id>', methods=['POST'])
+@login_required
+def post_delete(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash(f'{current_user.username.upper()}, Your current post has ben deleted', 'success')
+    return redirect(url_for('post_list'))

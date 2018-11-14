@@ -9,38 +9,38 @@
 	
      
 		<form action="" method="POST" class="form-horizontal" enctype="multipart/form-data">{{ form.hidden_tag() }}
-		<h3 class="text-muted">User account details</h3>
-		<br>
+			<h3 class="text-muted">User account details</h3>
+			<br>
 		<div class="form-group">    
-		 <div class="col-md-8">
-		   {{ form.username.label(class="control-label") }}
-		   <!-- This is check the username if is correct -->
-		   {% if form.username.errors %}
-		     {{ form.username(class="form-control form-control-lg is-invalid") }}
-		     <div class="invalid-feedback">
-		         {% for error in form.username.errors %}
-		             <span>{{error}}</span>
-		         {% endfor %}
-		     </div>
-		   {% else %}
-		       {{ form.username(class="form-control control-label") }}
-		   {% endif %}
-		 </div>
+			<div class="col-md-8">
+				{{ form.username.label(class="control-label") }}
+				<!-- This is check the username if is correct -->
+				{% if form.username.errors %}
+					{{ form.username(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.username.errors %}
+						 	<span>{{error}}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.username(class="form-control control-label") }}
+				{% endif %}
+			</div>
 		</div>
 		<div class="form-group">
-		   <div class="col-md-8">
-		   {{ form.email.label(class="control-label") }}
-		   {% if form.email.errors %}
-		     {{ form.email(class="form-control form-control-lg is-invalid") }}
-		     <div class="invalid-feedback">
-		         {% for error in form.email.errors %}
-		             <span class="text-danger">{{error}}</span>br
-		         {% endfor %}
-		     </div>
-		   {% else %}
-		       {{ form.email(class="form-control control-label") }}
-		   {% endif %}
-		 </div>
+		   	<div class="col-md-8">
+			   {{ form.email.label(class="control-label") }}
+			   {% if form.email.errors %}
+			     	{{ form.email(class="form-control form-control-lg is-invalid") }}
+			     		<div class="invalid-feedback">
+			         		{% for error in form.email.errors %}
+			             		<span class="text-danger">{{error}}</span>br
+			         		{% endfor %}
+			    		</div>
+			   {% else %}
+			       {{ form.email(class="form-control control-label") }}
+			   {% endif %}
+		 	</div>
 		</div>
 		<div class="form-group">
 		   <div class="col-md-8">
@@ -56,9 +56,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-		 <div class="col-md-8">
-		   {{ form.submit(class="btn btn-block btn-primary") }}
-		 </div>
+			<div class="col-md-8">
+				{{ form.submit(class="btn btn-block btn-primary") }}
+			</div>
 		</div>
 		</form>
 		<hr>

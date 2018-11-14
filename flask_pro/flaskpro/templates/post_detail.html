@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row">
+	<div class="col-md-8">
+		<img src="{{ url_for('static', filename='images/profile_picture/' + post.author.user_image) }}" class="rounded img-thumbnail float-right" >
+		<h4>{{ post.title }}</h4>
+		<p>{{post.author.username}}</p>
+		<strong>{{ post.created_date.strftime('%h, %d %Y | %H:%m') }}</strong>
+		<p class="text-justify">{{ post.content }}</p>
+
+		{% if current_user.is_authenticated and post.author == current_user %}
+		<div>
+			<a href="{{ url_for('create_post') }}" class="btn btn-secondary btn-success">Create Post</a>
+			<a href="{{ url_for('post_update', post_id=post.id) }}" class="btn btn-secondary btn-info">
+				Update
+			</a>
+			
+			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+				Delete
+			</button>
+			
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Post</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary pr-2" data-dismiss="modal">Close</button> 
+
+        <form action="{{ url_for('post_delete', post_id=post.id) }}" method="POST">
+        	<input class="btn btn-danger pl-2" type="submit"  value="Delete">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
