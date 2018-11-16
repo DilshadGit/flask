@@ -11,13 +11,15 @@ from flask import (
     request,
     abort,
 )
-from flaskpro import app, db, bcrypt
+from flaskpro import app, db, bcrypt, mail
 from flaskpro.forms import (
     UserRegistrationForm,
     UserLoginForm,
     UpdateUserAccountForm,
     CreatePostForm,
     UpdatePostForm,
+    RequestResetForm,
+    RestPasswordForm,
 )
 ''' The models must imported after database created not before !!!! '''
 from flaskpro.models import User, Post
@@ -27,6 +29,7 @@ from flask_login import (
     logout_user,
     login_required,
 )
+from flask_mail import Message
 
 ''' 
 route in flask use to map to different pages, and decorator in flask use to add 
@@ -255,3 +258,50 @@ def user_posts(username):
     posts = Post.query.filter_by(author=user).order_by(
         Post.created_date.desc()).paginate(page=page, per_page=3)
     return render_template(template_name, title='User Post list', posts=posts, user=user)
+
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Reset Password Request', sender='noreply@demo.com', recipients='user.email')
+    msg.body = f'''
+        To reset the password, please following the link: {url_for('reset_token', token=token,
+            _external=True)}
+        If you did not make this request then ignore this email and no change will make.
+    '''
+    mail.send(msg)
+
+
+@app.route('/user/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    template_name = 'registration/reset_request.html'
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('An email has ben send to your email address with, please follow the process', 'info')
+        return redirect(url_for('user_login'))
+    return render_template(template_name, title='Reset Password', form=form)
+
+
+@app.route('/user/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    template_name = 'registration/reset_token.html'
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = User.verify_reset_token(token)
+    if not user:
+        flash(f'This token is expired or invalid', 'warning')
+        return redirect(url_for('reset_request'))
+    form = RestPasswordForm()
+    if form.validate_on_submit():
+        ''' We ducrypte the password '''
+        hashed_pwd = bcrypt.generate_password_hash(
+            form.password.data).decode('utf-8')
+        ''' Adding user to the database '''
+        user.password = hashed_pwd
+        db.session.commit()
+        flash(f'You password has been updated. You are ready to login', 'success')
+        return redirect(url_for('user_login'))
+    return render_template(template_name, form=form, title='Reset new password')

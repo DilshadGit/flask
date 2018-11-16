@@ -50,11 +50,15 @@
        <br>
         <div class="col-md-4 col-md-offset-4">
           <p class="text-muted">
-            To create new account go to register form <a href="{{ url_for('user_register') }}" title="">Register</a>
-             <a href="#" title="">Forget Password</a>
+            <a href="{{ url_for('reset_request') }}" title="Forget password">Forget Password</a>
           </p>
         </div>
     </form>
+    <div class="col-md-4 col-md-offset-4">
+        <p class="text-muted">
+            To create new account go to register form <a href="{{ url_for('user_register') }}" title="">Register</a>
+        </p>
+    </div>
 </div>
 {% endblock content %}
 
