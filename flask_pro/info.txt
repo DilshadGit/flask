@@ -240,3 +240,19 @@ Post('Hello Python', '2018-11-13 15:33:38.855804', 'User('Dilshad Abdulla', 'dil
 6
 7
 >>> 
+
+
+Reste password via email:
+>>> from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+>>> s = Serializer('secret', '30')
+>>> token = s.dumps({'user_id':int(1)}).decode('utf-8')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/dilmac/Develop/flaskenv/lib/python3.6/site-packages/itsdangerous/jws.py", line 134, in dumps
+    header = self.make_header(header_fields)
+  File "/home/dilmac/Develop/flaskenv/lib/python3.6/site-packages/itsdangerous/jws.py", line 180, in make_header
+    exp = iat + self.expires_in
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+pip install flask-mail
