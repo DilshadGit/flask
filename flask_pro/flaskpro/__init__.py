@@ -22,12 +22,16 @@ def create_app(config_class=Config):
 	from flaskpro.accounts.routes import accounts
 	from flaskpro.posts.routes import posts
 	from flaskpro.settings.routes import settings
+	from flaskpro.errors.handlers import errors
+
 	db.init_app(app)
 	bcrypt.init_app(app)
 	login_manager.init_app(app)
 	mail.init_app(app)
+
 	app.register_blueprint(accounts)
 	app.register_blueprint(posts)
 	app.register_blueprint(settings)
+	app.register_blueprint(errors)
 
 	return app
