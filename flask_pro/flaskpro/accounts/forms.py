@@ -22,7 +22,6 @@ from flaskpro.models import User
 from flask_login import current_user
 
 
-
 class UserRegistrationForm(FlaskForm):
     username = StringField('Username', validators=[
                            DataRequired(), Length(min=4, max=21)])
@@ -86,6 +85,7 @@ class UpdateUserAccountForm(FlaskForm):
                 raise ValidationError(
                     'This email is taken. Please try different email'
                 )
+
 
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

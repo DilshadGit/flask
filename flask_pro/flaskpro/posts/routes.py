@@ -82,7 +82,7 @@ def post_update(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-    return render_template(template_name, title='Update Post', post=post, form=form, legend='Update Post')
+    return render_template(template_name, post=post, form=form, legend='Update Post')
 
 
 @posts.route('/post/delete/<int:post_id>', methods=['POST'])
