@@ -26,7 +26,7 @@ posts = Blueprint('posts', __name__)
 @posts.route('/post/create', methods=['GET', 'POST'])
 @login_required
 def create_post():
-    template_name = 'post_create.html'
+    template_name = 'posts/post_create.html'
     form = CreatePostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data,
@@ -40,7 +40,7 @@ def create_post():
 
 @posts.route('/posts')
 def post_list():
-    template_name = 'posts.html'
+    template_name = 'posts/posts.html'
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(
         Post.created_date.desc()).paginate(page=page, per_page=3)
@@ -49,7 +49,7 @@ def post_list():
 
 @posts.route('/user/<string:username>')
 def user_posts(username):
-    template_name = 'user_posts.html'
+    template_name = 'posts/user_posts.html'
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user).order_by(
@@ -59,7 +59,7 @@ def user_posts(username):
 
 @posts.route('/post/<int:post_id>')
 def post_detail(post_id):
-    template_name = 'post_detail.html'
+    template_name = 'posts/post_detail.html'
     post = Post.query.get_or_404(post_id)
     return render_template(template_name, post=post, title=post.title)
 
@@ -67,7 +67,7 @@ def post_detail(post_id):
 @posts.route('/post/update/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def post_update(post_id):
-    template_name = 'post_update.html'
+    template_name = 'posts/post_update.html'
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
