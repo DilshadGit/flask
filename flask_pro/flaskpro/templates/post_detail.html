@@ -12,8 +12,8 @@
 
 		{% if current_user.is_authenticated and post.author == current_user %}
 		<div>
-			<a href="{{ url_for('create_post') }}" class="btn btn-secondary btn-success">Create Post</a>
-			<a href="{{ url_for('post_update', post_id=post.id) }}" class="btn btn-secondary btn-info">
+			<a href="{{ url_for('posts.create_post') }}" class="btn btn-secondary btn-success">Create Post</a>
+			<a href="{{ url_for('posts.post_update', post_id=post.id) }}" class="btn btn-secondary btn-info">
 				Update
 			</a>
 			
@@ -40,7 +40,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary pr-2" data-dismiss="modal">Close</button> 
 
-        <form action="{{ url_for('post_delete', post_id=post.id) }}" method="POST">
+        <form action="{{ url_for('posts.post_delete', post_id=post.id) }}" method="POST">
         	<input class="btn btn-danger pl-2" type="submit"  value="Delete">
         </form>
       </div>
