@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+
 # you need to import stringfield to create new attribut for the field
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import (
@@ -6,8 +7,8 @@ from wtforms import (
     PasswordField,
     SubmitField,
     BooleanField,
-    TextAreaField,
 )
+
 # this for validate the length of the field
 from wtforms.validators import (
     DataRequired,
@@ -16,9 +17,10 @@ from wtforms.validators import (
     EqualTo,
     ValidationError,
 )
+''' The models must imported after database created not before !!!! '''
+from flaskpro.models import User
 from flask_login import current_user
 
-from flaskpro.models import User
 
 
 class UserRegistrationForm(FlaskForm):
@@ -84,21 +86,6 @@ class UpdateUserAccountForm(FlaskForm):
                 raise ValidationError(
                     'This email is taken. Please try different email'
                 )
-
-
-class CreatePostForm(FlaskForm):
-    title = StringField('Title', validators=[
-        DataRequired(), ])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Create Post')
-
-
-class UpdatePostForm(FlaskForm):
-    title = StringField('Title', validators=[
-        DataRequired(), ])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Update Post')
-
 
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
