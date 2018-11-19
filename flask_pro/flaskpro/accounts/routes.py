@@ -46,7 +46,7 @@ def user_register():
         db.session.add(user)
         db.session.commit()
         flash(f'You have been successfully registered. You are ready to login', 'success')
-        return redirect(url_for('user_login'))
+        return redirect(url_for('accounts.user_login'))
     context = {
         'title': 'Register',
     }
