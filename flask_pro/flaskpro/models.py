@@ -6,11 +6,9 @@ from flask import current_app
 from flaskpro import db, login_manager
 from flask_login import UserMixin
 
-
 ''' We create function as decorater to recognise the user loggedin
 used for user is authenticated, user is active, anounues user and get id 
 '''
-
 
 @login_manager.user_loader
 def load_user(user_id):
