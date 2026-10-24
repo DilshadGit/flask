@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import URLSafeTimedSerializer
 
 from flask import current_app
 from flaskpro import db, login_manager
@@ -9,6 +9,8 @@ from flask_login import UserMixin
 ''' We create function as decorater to recognise the user loggedin
 used for user is authenticated, user is active, anounues user and get id 
 '''
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -51,3 +53,4 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.created_date}', '{self.author}')"
+
