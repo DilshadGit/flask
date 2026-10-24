@@ -4,3 +4,5 @@ __pycache__
 requirements2.txt
 guide.text
 *.db
+*.venv
+*.idea
